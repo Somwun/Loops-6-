@@ -39,14 +39,13 @@ namespace Loops___6_
                                 bool correct = userNum >= min & userNum <= max;
                                 while (!correct)
                                 {
-                                    Console.WriteLine("NO, again.");
+                                    Console.Write("NO, again.");
                                     correct = int.TryParse(Console.ReadLine(), out userNum);
                                     if (correct)
                                         correct = userNum >= min & userNum <= max;
                                 }
-                                Console.WriteLine("Good, now press enter to do it again\n");
-                                Console.ReadLine();
-                                
+                                Console.WriteLine("Good, now press enter to do it again");
+                                Console.ReadLine();                               
                             }
                             else
                             {
@@ -66,9 +65,7 @@ namespace Loops___6_
                         Console.WriteLine("Make sure your input is a number");
                     }
                 }
-
             }
-
         }
         static void Scores()
         {
