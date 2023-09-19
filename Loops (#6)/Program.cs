@@ -1,43 +1,108 @@
-﻿namespace Loops___6_
+﻿using System.Drawing;
+
+namespace Loops___6_
 {
     internal class Program
     {
-        class Global
-        {
-            public static string userInput;
-        }
         static void Main(string[] args)
         {
-            Scores();
+            Console.ForegroundColor = ConsoleColor.Black;
+            Console.BackgroundColor = ConsoleColor.White;
+            Prompt();
         }
         static void Prompt()
         {
-            string gabe = "Gabe's Head";
-            Console.WriteLine(gabe);
+            int min, max, userNum;
+            bool repeat = true, repeat2 = true, repeat3 = true;
+            while (repeat)
+            {
+                repeat2 = true;
+                Console.Clear();
+                Console.WriteLine("Give me a minimum number");
+                while (repeat2)
+                {
+                    if (int.TryParse(Console.ReadLine(), out min))
+                    {
+                        repeat2 = false;
+                        Console.WriteLine("Now give me a maximum");
+                        if (int.TryParse(Console.ReadLine(),out max))
+                        {
+                            while (max <= min)
+                            {
+                                Console.WriteLine("NO, again.");
+                                int.TryParse(Console.ReadLine(),out max);
+                            }
+                            Console.Clear();
+                            Console.WriteLine($"Now choose a number that's inbetween {min} & {max}");
+                            if (int.TryParse(Console.ReadLine(), out userNum))
+                            {
+                                bool correct = userNum >= min & userNum <= max;
+                                while (!correct)
+                                {
+                                    Console.WriteLine("NO, again.");
+                                    correct = int.TryParse(Console.ReadLine(), out userNum);
+                                    if (correct)
+                                        correct = userNum >= min & userNum <= max;
+                                }
+                                Console.WriteLine("Good, now press enter to do it again\n");
+                                Console.ReadLine();
+                                
+                            }
+                            else
+                            {
+
+                            }
+                        }
+                        else
+                        {
+
+                        }
+                    }
+                    else
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("WRONG");
+                        Console.ForegroundColor = ConsoleColor.Black;
+                        Console.WriteLine("Make sure your input is a number");
+                    }
+                }
+
+            }
+
         }
         static void Scores()
         {
+            int userInput;
             bool isNumber;
             Console.WriteLine("Give me some scores out of 100, and I'll tell you what percent of them are above 70\nAlso you don't have to type out #/100, I'll just asumme the /100");
             Console.WriteLine("So first off, how many scores do you have to give me?");
-            Global.userInput = Console.ReadLine();
-            if (isNumber  = Global.userInput.All(char.IsDigit))
+            int[] scores;
+            if (int.TryParse(Console.ReadLine(), out userInput))
             {
-                UseParams();
+                scores = new int[userInput];
+                for (int i = 0; i < userInput; i++)
+                {
+                    Console.WriteLine($"Please input the {i+1} score");
+                    Int32.TryParse(Console.ReadLine(), out scores[i]);
+                }
+                Console.Write("The scores above 70 are: ");
+                double above70 = 0;
+
+                for (int i = 0; i < userInput; i++)
+                {
+                    if (scores[i] >= 70)
+                    {
+                        Console.Write(scores[i] + " ");
+                        above70 += 1;
+                    }
+                }
+                above70 = Math.Round(above70 / userInput * 100, 1);
+                Console.WriteLine($"\nThe amount of scores above 70% is {above70}%");
             }
             else
             {
 
             }
-        }
-        static void UseParams(params object[] list)
-        {
-            for (Convert.ToInt32(Global.userInput); Convert.ToInt32(Global.userInput) < list.Length; Global.userInput += 1)
-            {
-                Console.WriteLine(list[Convert.ToInt32(Global.userInput)]);
-
-            }
-            Console.ReadLine();
         }
         static void OddSum()
         {
@@ -135,7 +200,7 @@
                 else if (userInput != "help" & userInput != "exit" & money > 0)
                 {
                     Console.Clear();
-                    Console.WriteLine($"How much do you want to bet on that?\nBy the way you have {money.ToString("C")} Left");
+                    Console.WriteLine($"How much do you want to bet on that?\nBy the way you have {money.ToString("C")} left");
                     bet = Console.ReadLine().Trim();
                     if (Convert.ToDouble(bet) > money)
                         bet = Convert.ToString(money);
@@ -158,7 +223,7 @@
                             else
                             {
                                 money -= Convert.ToDouble(bet);
-                                Console.WriteLine($"Well we can't all be winners, you know have {money.ToString("C")} left\nPress enter to continue");
+                                Console.WriteLine($"Well we can't all be winners, you now have {money.ToString("C")} left\nPress enter to continue");
                                 Console.ReadLine();
                             }
                         }
@@ -182,7 +247,7 @@
                             else
                             {
                                 money -= Convert.ToDouble(bet);
-                                Console.WriteLine($"Well we can't all be winners, you know have {money.ToString("C")} left\nPress enter to continue");
+                                Console.WriteLine($"Well we can't all be winners, you now have {money.ToString("C")} left\nPress enter to continue");
                                 Console.ReadLine();
                             }
                         }
@@ -204,7 +269,7 @@
                             else
                             {
                                 money -= Convert.ToDouble(bet);
-                                Console.WriteLine($"Well we can't all be winners, you know have {money.ToString("C")} left\nPress enter to continue");
+                                Console.WriteLine($"Well we can't all be winners, you now have {money.ToString("C")} left\nPress enter to continue");
                                 Console.ReadLine();
                             }
                         }
@@ -226,7 +291,7 @@
                             else
                             {
                                 money -= Convert.ToDouble(bet);
-                                Console.WriteLine($"Well we can't all be winners, you know have {money.ToString("C")} left\nPress enter to continue");
+                                Console.WriteLine($"Well we can't all be winners, you now have {money.ToString("C")} left\nPress enter to continue");
                                 Console.ReadLine();
                             }
                         }
