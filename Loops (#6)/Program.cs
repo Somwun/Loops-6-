@@ -6,7 +6,7 @@ namespace Loops___6_
     {
         static void Main(string[] args)
         {
-            int numb;
+            int num;
             bool repeat = true;
             while (repeat)
             {
@@ -14,11 +14,11 @@ namespace Loops___6_
                 Console.BackgroundColor = ConsoleColor.White;
                 Console.Clear();
                 Console.WriteLine("NUMBER NOW");
-                while(!Int32.TryParse(Console.ReadLine(), out numb))
+                while(!Int32.TryParse(Console.ReadLine(), out num))
                 {
                     Console.WriteLine("No, Again");
                 }
-                switch(numb)
+                switch(num)
                 {
                     case 1:
                         Prompt();
@@ -31,6 +31,9 @@ namespace Loops___6_
                         break;
                     case 4:
                         RandomNumbers();
+                        break;
+                    case 5:
+                        DiceGame();
                         break;
                     case 0:
                         Console.WriteLine("Go Die");
@@ -87,12 +90,16 @@ namespace Loops___6_
         static void Scores()
         {
             int userInput;
-            bool isNumber;
+            bool repeat = true;
             Console.WriteLine("Give me some scores out of 100, and I'll tell you what percent of them are above 70\nAlso you don't have to type out #/100, I'll just asumme the /100");
             Console.WriteLine("So first off, how many scores do you have to give me?");
             int[] scores;
-            if (int.TryParse(Console.ReadLine(), out userInput))
+            while (repeat)
             {
+                while (!int.TryParse(Console.ReadLine(), out userInput))
+                {
+                    Console.WriteLine("No, again");
+                }
                 scores = new int[userInput];
                 for (int i = 0; i < userInput; i++)
                 {
@@ -101,7 +108,6 @@ namespace Loops___6_
                 }
                 Console.Write("The scores above 70 are: ");
                 double above70 = 0;
-
                 for (int i = 0; i < userInput; i++)
                 {
                     if (scores[i] >= 70)
@@ -111,34 +117,37 @@ namespace Loops___6_
                     }
                 }
                 above70 = Math.Round(above70 / userInput * 100, 1);
-                Console.WriteLine($"\nThe amount of scores above 70% is {above70}%");
-            }
-            else
-            {
-
+                Console.WriteLine($"\nThe amount of scores above 70% is {above70}%\nPress enter to continue or type exit to exit");
+                if (Console.ReadLine().ToLower().Trim() == "exit")
+                    repeat = false;
             }
         }
         static void OddSum()
         {
             int num = 0, numInput;
-            Console.WriteLine("Giv numbur");
-            numInput = Convert.ToInt32(Console.ReadLine());
-            if (numInput >= 0)
+            bool repeat = true;
+            while (repeat)
             {
-                for (int i = 1; i < numInput + 1; i += 2)
+                Console.WriteLine("Giv numbur");
+                numInput = Convert.ToInt32(Console.ReadLine());
+                if (numInput >= 0)
                 {
-                    num += i;
+                    for (int i = 1; i < numInput + 1; i += 2)
+                    {
+                        num += i;
+                    }
                 }
-            }
-            else
-            {
-                for (int i = -1; i > numInput - 1; i -= 2)
+                else
                 {
-                    num += i;
+                    for (int i = -1; i > numInput - 1; i -= 2)
+                    {
+                        num += i;
+                    }
                 }
+                Console.WriteLine(num + "\nPress enter to continue\n(Or type exit to exit)");
+                if (Console.ReadLine().ToLower().Trim() == "exit")
+                    repeat = false;
             }
-            Console.WriteLine(num + "\nPress enter to continue");
-            Console.ReadLine();
         }
         static void RandomNumbers()
         {
@@ -157,9 +166,9 @@ namespace Loops___6_
                         {
                             Console.WriteLine(genorator.Next(min, max));
                         }
-                        Console.WriteLine("Press Enter to continue");
-                        repeat = false;
-                        Console.ReadLine();
+                        Console.WriteLine("Press Enter to continue\n(Or type exit to exit");
+                        if (Console.ReadLine().ToLower().Trim() == "exit")
+                            repeat = false;
                     }
                     else
                     {
