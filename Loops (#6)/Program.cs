@@ -13,7 +13,7 @@ namespace Loops___6_
                 Console.ForegroundColor = ConsoleColor.Black;
                 Console.BackgroundColor = ConsoleColor.White;
                 Console.Clear();
-                Console.WriteLine("NUMBER NOW");
+                Console.WriteLine("MENU\nType 1 for Prompts\nType 2 for Scores\nType 3 for OddSum\nType 4 for Random Number\nType 5 for Dice Game\nOr type 0 to Quit");
                 while(!Int32.TryParse(Console.ReadLine(), out num))
                 {
                     Console.WriteLine("No, Again");
