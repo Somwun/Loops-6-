@@ -16,7 +16,7 @@ namespace Loops___6_
                 Console.WriteLine("MENU\nType 1 for Prompts\nType 2 for Scores\nType 3 for OddSum\nType 4 for Random Number\nType 5 for Dice Game\nOr type 0 to Quit");
                 while (!Int32.TryParse(Console.ReadLine(), out num) || num < 0 || num > 5)
                 {
-                    Console.WriteLine("Woops, you're REALLY stupid\n(Please try and not be stupid)");
+                    Console.WriteLine("Woops, you're stupid. Please try again (And this time don't be stupid)");
                 }
                 switch (num)
                 {
@@ -36,7 +36,7 @@ namespace Loops___6_
                         DiceGame();
                         break;
                     case 0:
-                        Console.WriteLine("Go Die");
+                        Console.WriteLine("Ok, you can go now");
                         repeat = false;
                         break;
                 }
@@ -205,13 +205,13 @@ namespace Loops___6_
                 }
                 while (!int.TryParse(exit, out min))
                 {
-                    Console.WriteLine("Make sure your minimum number is a number");
+                    Console.WriteLine("Please make sure your minimum number is a number");
                     exit = Console.ReadLine();
                 }
                 Console.WriteLine("Now give me a maximum");
                 while (!int.TryParse(Console.ReadLine(), out max))
                 {
-                    Console.WriteLine("Make sure your maximum number is a number");
+                    Console.WriteLine("Please make sure your maximum number is a number");
                 }
                 for (int i = 0; i < 25; i++)
                 {
