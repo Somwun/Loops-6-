@@ -14,11 +14,11 @@ namespace Loops___6_
                 Console.BackgroundColor = ConsoleColor.White;
                 Console.Clear();
                 Console.WriteLine("MENU\nType 1 for Prompts\nType 2 for Scores\nType 3 for OddSum\nType 4 for Random Number\nType 5 for Dice Game\nOr type 0 to Quit");
-                while(!Int32.TryParse(Console.ReadLine(), out num))
+                while (!Int32.TryParse(Console.ReadLine(), out num) || num < 0 || num > 5)
                 {
-                    Console.WriteLine("No, Again");
+                    Console.WriteLine("Woops, you're REALLY stupid\n(Please try and not be stupid)");
                 }
-                switch(num)
+                switch (num)
                 {
                     case 1:
                         Prompt();
@@ -52,10 +52,12 @@ namespace Loops___6_
                 Console.Clear();
                 Console.WriteLine("Give me a minimum number\n(Or type exit to exit)");
                 userInput = Console.ReadLine().ToLower().Trim();
-                if (userInput == "exit"){
+                if (userInput == "exit")
+                {
                     repeat = false;
-                }    
-                else if (int.TryParse(userInput, out min)){
+                }
+                else if (int.TryParse(userInput, out min))
+                {
                     Console.Clear();
                     Console.WriteLine("Now give me a maximum");
                     while (!(int.TryParse(Console.ReadLine().Trim(), out max)) || max <= min)
@@ -64,7 +66,8 @@ namespace Loops___6_
                     }
                     Console.Clear();
                     Console.WriteLine($"Now choose a number that's inbetween {min} & {max}");
-                    if (int.TryParse(Console.ReadLine(), out userNum)){
+                    if (int.TryParse(Console.ReadLine(), out userNum))
+                    {
                         bool correct = userNum >= min & userNum <= max;
                         while (!correct)
                         {
@@ -77,8 +80,9 @@ namespace Loops___6_
                         if (Console.ReadLine().ToLower().Trim() == "exit")
                             repeat = false;
                     }
-                }       
-                else{
+                }
+                else
+                {
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("\nWRONG");
                     Console.ForegroundColor = ConsoleColor.Black;
@@ -91,20 +95,41 @@ namespace Loops___6_
         {
             int userInput;
             bool repeat = true;
+            Console.Clear();
             Console.WriteLine("Give me some scores out of 100, and I'll tell you what percent of them are above 70\nAlso you don't have to type out #/100, I'll just asumme the /100");
-            Console.WriteLine("So first off, how many scores do you have to give me?");
+            Console.WriteLine("So first off, how many scores do you have to give me?\n(You can also type exit to exit)");
             int[] scores;
             while (repeat)
             {
-                while (!int.TryParse(Console.ReadLine(), out userInput))
+                string temp;
+                temp = Console.ReadLine().ToLower().Trim();
+                while (!int.TryParse(temp, out userInput))
                 {
+                    if (temp == "exit")
+                    {
+                        repeat = false; break;
+                    }
                     Console.WriteLine("No, again");
+                    temp = Console.ReadLine().Trim().ToLower();
                 }
+                if (!repeat)
+                    break;
                 scores = new int[userInput];
                 for (int i = 0; i < userInput; i++)
                 {
-                    Console.WriteLine($"Please input the {i + 1} score");
-                    Int32.TryParse(Console.ReadLine(), out scores[i]);
+
+                    if (i == 0)
+                        Console.WriteLine("Please input the 1st score");
+                    else if (i == 1)
+                        Console.WriteLine("Please input the 2nd score");
+                    else if (i == 2)
+                        Console.WriteLine("Please input the 3rd score");
+                    else
+                        Console.WriteLine($"Please input the {i + 1}th score");
+                    while (!Int32.TryParse(Console.ReadLine(), out scores[i]) || scores[i] < 0 || scores[i] > 100)
+                    {
+                        Console.WriteLine("Bad");
+                    }
                 }
                 Console.Write("The scores above 70 are: ");
                 double above70 = 0;
@@ -125,11 +150,23 @@ namespace Loops___6_
         static void OddSum()
         {
             int num = 0, numInput;
-            bool repeat = true;
+            string exit;
+            bool repeat = true, isNumber;
             while (repeat)
             {
-                Console.WriteLine("Giv numbur");
-                numInput = Convert.ToInt32(Console.ReadLine());
+                Console.Clear();
+                Console.WriteLine("Give me a number\n(Or type exit to exit)");
+                exit = Console.ReadLine().ToLower().Trim();
+                if (exit == "exit")
+                {
+                    repeat = false;
+                    break;
+                }
+                while (!int.TryParse(exit, out numInput))
+                {
+                    Console.WriteLine("Make sure our input is a number");
+                    exit = Console.ReadLine();
+                }
                 if (numInput >= 0)
                 {
                     for (int i = 1; i < numInput + 1; i += 2)
@@ -144,7 +181,7 @@ namespace Loops___6_
                         num += i;
                     }
                 }
-                Console.WriteLine(num + "\nPress enter to continue\n(Or type exit to exit)");
+                Console.WriteLine($"The sum of all of the odd numbers in that number is {num}\nPress enter to continue\n(Or type exit to exit)");
                 if (Console.ReadLine().ToLower().Trim() == "exit")
                     repeat = false;
             }
@@ -152,35 +189,37 @@ namespace Loops___6_
         static void RandomNumbers()
         {
             int min, max;
+            string exit;
             bool repeat = true;
             Random genorator = new Random();
             while (repeat)
             {
-                Console.WriteLine("Give me a minimum number");
-                if (int.TryParse(Console.ReadLine(), out min))
+                Console.Clear();
+                Console.WriteLine("Here's what's gonna happen, you're gonna give me a min and max number and I'll genorate 25 random numbers in between those values");
+                Console.WriteLine("Now give me a minimum number\n(Or type exit to exit)");
+                exit = Console.ReadLine().ToLower().Trim();
+                if (exit == "exit")
                 {
-                    Console.WriteLine("Now give me a maximum");
-                    if (int.TryParse(Console.ReadLine(), out max))
-                    {
-                        for (int i = 0; i < 25; i++)
-                        {
-                            Console.WriteLine(genorator.Next(min, max));
-                        }
-                        Console.WriteLine("Press Enter to continue\n(Or type exit to exit");
-                        if (Console.ReadLine().ToLower().Trim() == "exit")
-                            repeat = false;
-                    }
-                    else
-                    {
-                        Console.WriteLine("Invalid Input\nPress enter to retry");
-                        Console.ReadLine();
-                    }
+                    repeat = false;
+                    break;
                 }
-                else
+                while (!int.TryParse(exit, out min))
                 {
-                    Console.WriteLine("Invalid Input\nPress enter to retry");
-                    Console.ReadLine();
+                    Console.WriteLine("Make sure your minimum number is a number");
+                    exit = Console.ReadLine();
                 }
+                Console.WriteLine("Now give me a maximum");
+                while (!int.TryParse(Console.ReadLine(), out max))
+                {
+                    Console.WriteLine("Make sure your maximum number is a number");
+                }
+                for (int i = 0; i < 25; i++)
+                {
+                    Console.Write(genorator.Next(min, max) + " ");
+                }
+                Console.WriteLine("\nPress Enter to continue\n(Or type exit to exit)");
+                if (Console.ReadLine().ToLower().Trim() == "exit")
+                    repeat = false;
             }
         }
         static void DiceGame()
